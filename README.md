@@ -11,3 +11,9 @@ details.
 
 Please ensure that you go through on where to get tests [here](./docs/PROBLEM.md#where-to-get-tests) to manually get the
 tests with the correct folder names first.
+
+// TODO: Complete CMake information for building the project including all the tools used.
+
+## Testing out the program
+
+// TODO: Complete testing information for the program - mostly with python and shell scripts.
