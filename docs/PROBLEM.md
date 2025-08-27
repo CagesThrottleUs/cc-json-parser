@@ -13,3 +13,12 @@ to add them into the project for the following folder names:
 1. [challenges](https://www.dropbox.com/s/vthtr4897fkuhw8/tests.zip?dl=1)
 2. [testsuite](https://www.json.org/JSON_checker/test.zip)
 3. [hardcore](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fnst%2FJSONTestSuite%2Ftree%2Fmaster%2Ftest_parsing)
+
+# How will program communicate with the world
+
+The CLI program will communicate with the caller by providing the following two information:
+
+1. Exit Code as 0 if the JSON is valid, Exit Code as 1 if the JSON is invalid. Other reserved exit codes can be used to
+   indicate other processing errors.
+2. It will display important information about failures from the such as unexpected keyword found etc. (lexical failures)
+3. Also display failure information about the parsing error.
