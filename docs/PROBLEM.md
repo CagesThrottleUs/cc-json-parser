@@ -22,3 +22,7 @@ The CLI program will communicate with the caller by providing the following two 
    indicate other processing errors.
 2. It will display important information about failures from the such as unexpected keyword found etc. (lexical failures)
 3. Also display failure information about the parsing error.
+
+# Testing mechanism
+
+We will be testing the program generated as shown in the [README.md](../README.md).
