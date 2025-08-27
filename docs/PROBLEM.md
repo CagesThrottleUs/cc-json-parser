@@ -3,7 +3,7 @@
 We have to create a simple CLI application that will validate the JSON provided by the user. The JSON is described with
 the attached document. (Language Specification Document) [here](./language_document.pdf)
 
-The CLI application must accept both stdin and file path as argument.
+The CLI application must accept file path as argument.
 
 # Where to get tests
 
