@@ -169,6 +169,7 @@ class Parser {
     Tokenizer& lexer;
 
     const Token& peek() { return lexer.peek(); }
+    
     Token consume(TokenType expected) {
         const Token& t = lexer.peek();
         if (t.type != expected) {
@@ -176,6 +177,7 @@ class Parser {
         }
         return lexer.consume();
     }
-    ...
+
+    //...
 };
 ```
