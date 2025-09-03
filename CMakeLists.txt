@@ -104,3 +104,17 @@ foreach(dir challenges hardcore testsuite)
         message(WARNING "${dir} directory not found — skipping its installation")
     endif()
 endforeach()
+
+# Install files from utils/ directly into bin (flat, not in subdir)
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/util")
+    file(GLOB UTIL_FILES "${CMAKE_CURRENT_SOURCE_DIR}/util/*")
+    if (UTIL_FILES)
+        install(FILES ${UTIL_FILES} DESTINATION bin
+                PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+        )
+    else()
+        message(WARNING "util/ exists but has no files — skipping its installation")
+    endif()
+else()
+    message(WARNING "util/ directory not found — skipping its installation")
+endif()
