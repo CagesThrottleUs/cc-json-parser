@@ -43,15 +43,6 @@
 # License Copy text
 APPLY_TERMS
 
-# JSON tests directory from coding challenges
-challenges/
-
-# JSON test directory from JSON test suite
-testsuite/
-
-# Hardcore JSON tests
-hardcore/
-
 # macOS files
 .DS_Store
 
