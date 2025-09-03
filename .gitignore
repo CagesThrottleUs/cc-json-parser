@@ -54,3 +54,6 @@ hardcore/
 
 # macOS files
 .DS_Store
+
+# Build directory
+out/
