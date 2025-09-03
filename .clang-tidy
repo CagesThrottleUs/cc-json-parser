@@ -1,0 +1,193 @@
+---
+# High-Frequency Trading (HFT) Optimized Clang-Tidy Configuration
+# This configuration prioritizes performance, safety, and HFT-specific requirements
+# over general code style preferences.
+
+Checks: >
+  bugprone-*,
+  clang-analyzer-*,
+  cert-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  hicpp-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  misc-const-correctness,
+  misc-unused-using-decls,
+  misc-unused-alias-decls
+
+WarningsAsErrors: >
+  bugprone-*,
+  clang-analyzer-*,
+  cppcoreguidelines-special-member-functions,
+  modernize-use-nullptr,
+  modernize-use-override,
+  performance-for-range-copy,
+  performance-unnecessary-value-param,
+  performance-unnecessary-copy-initialization,
+  performance-move-const-arg,
+  performance-noexcept-move-constructor
+
+HeaderFilterRegex: "^(src|include)/"
+SystemHeaders: false
+UseColor: true
+FormatStyle: none
+
+CheckOptions:
+  # =====================
+  # Naming rules
+  # =====================
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: m_
+  - key: readability-identifier-naming.ConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  - key: readability-identifier-naming.MacroCase
+    value: UPPER_CASE
+
+  # =====================
+  # Modernization & safety
+  # =====================
+  - key: modernize-use-nullptr.NullMacros
+    value: "NULL"
+  - key: modernize-loop-convert.MinConfidence
+    value: reasonable
+  - key: modernize-pass-by-value.IncludeStyle
+    value: llvm
+  - key: modernize-replace-auto-ptr.IgnoreSmartPointers
+    value: false
+  - key: modernize-use-override.StrictMode
+    value: true
+
+  # =====================
+  # Ownership & memory
+  # =====================
+  - key: cppcoreguidelines-owning-memory.CheckNewDelete
+    value: true # ban raw new/delete
+  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value: true
+  - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctions
+    value: false # require move, avoid accidental deep copies
+
+  # =====================
+  # Bugprone
+  # =====================
+  - key: bugprone-sizeof-expression.WarnOnSizeOfConstant
+    value: true
+  - key: bugprone-assert-side-effect.AssertMacros
+    value: assert
+  - key: bugprone-string-constructor.WarnOnLargeLength
+    value: true
+
+  # =====================
+  # Performance
+  # =====================
+  - key: performance-for-range-copy.WarnOnAllAutoCopies
+    value: true
+  - key: performance-unnecessary-value-param.AllowedTypes
+    value: "" # enforce const-ref for everything unless trivial
+  - key: performance-move-const-arg.CheckMoveOnlyTypes
+    value: true
+  - key: performance-unnecessary-copy-initialization.AllowedTypes
+    value: ""
+
+  # =====================
+  # Complexity rules
+  # =====================
+  - key: hicpp-function-size.LineThreshold
+    value: 70 # keep functions tight for I-cache friendliness
+  - key: hicpp-function-size.StatementThreshold
+    value: 300
+  - key: hicpp-function-size.BranchThreshold
+    value: 20
+
+  # =====================
+  # HFT-SPECIFIC PERFORMANCE OPTIMIZATIONS
+  # =====================
+
+  # Cache locality and memory access patterns
+  - key: cppcoreguidelines-avoid-c-arrays.ArraySizeThreshold
+    value: 64 # prefer std::array for small fixed-size arrays
+  - key: cppcoreguidelines-avoid-magic-numbers.IgnoredNumbers
+    value: "0;1;2;3;4;8;16;32;64;128;256;512;1024;2048;4096;8192"
+
+  # Prevent dynamic allocations in hot paths
+  - key: cppcoreguidelines-avoid-dynamic-memory-allocation.AllowSizedDeallocation
+    value: false # ban all dynamic allocations in critical paths
+
+  # Exception safety for HFT
+  - key: cppcoreguidelines-exceptions-std-terminate.Behavior
+    value: terminate # terminate on any exception in critical paths
+
+  # Move semantics optimization
+  - key: performance-noexcept-move-constructor.RequireNoexcept
+    value: true # enforce noexcept for all move constructors
+
+  # String optimization for HFT
+  - key: performance-inefficient-string-concatenation.Threshold
+    value: 3 # warn on more than 3 string concatenations
+
+  # Loop optimization
+  - key: performance-implicit-conversion-in-loop.WarnOnIntegerToFloatConversion
+    value: true # warn on implicit conversions in loops
+
+  # =====================
+  # HFT MEMORY LAYOUT OPTIMIZATIONS
+  # =====================
+
+  # Structure packing and alignment
+  - key: cppcoreguidelines-pro-type-member-init.UseAssignment
+    value: false # prefer member initializer lists for better cache locality
+
+  # Avoid virtual functions in critical paths
+  - key: cppcoreguidelines-virtual-class-destructor.IgnoreDestructors
+    value: false # enforce virtual destructors but warn about virtual overhead
+
+  # =====================
+  # HFT CONCURRENCY AND ATOMICITY
+  # =====================
+
+  # Memory ordering and atomic operations
+  - key: concurrency-mt-unsafe.Enable
+    value: true # check for thread safety issues
+
+  # =====================
+  # HFT COMPILE-TIME OPTIMIZATIONS
+  # =====================
+
+  # Const correctness for better optimization
+  - key: misc-const-correctness.Enable
+    value: true # enforce const correctness for better compiler optimization
+
+  # Template and compile-time checks
+  - key: cppcoreguidelines-avoid-non-const-global-variables.Enable
+    value: true # prefer const globals for better optimization
+
+  # =====================
+  # HFT PROFILING AND DEBUGGING SUPPORT
+  # =====================
+
+  # Performance profiling annotations
+  - key: performance-unnecessary-value-param.Enable
+    value: true # help identify expensive parameter passing
+
+  # Memory profiling support
+  - key: cppcoreguidelines-owning-memory.Enable
+    value: true # track memory ownership for profiling

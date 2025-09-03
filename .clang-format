@@ -1,0 +1,153 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# =====================
+# HFT-OPTIMIZED FORMATTING CONFIGURATION
+# =====================
+# This configuration prioritizes:
+# 1. Performance-critical code readability
+# 2. Cache-friendly formatting (minimizing line breaks)
+# 3. Consistent team collaboration standards
+# 4. Debugging efficiency in high-stakes environments
+
+# =====================
+# General Formatting
+# =====================
+IndentWidth: 4 # Standard 4-space indentation for readability
+TabWidth: 4 # Consistent with IndentWidth
+UseTab: Never # Spaces ensure consistent display across editors
+ColumnLimit: 120 # HFT: Wider lines reduce unnecessary breaks in complex expressions
+AccessModifierOffset: -2 # Align access specifiers with class content
+NamespaceIndentation: None # HFT: No extra indentation for namespaces (performance-critical code)
+IndentCaseLabels: true # Clear case label hierarchy
+BreakBeforeBraces: Custom # Custom brace breaking for optimal readability
+
+# =====================
+# Brace Wrapping - HFT Performance Focus
+# =====================
+BraceWrapping:
+  AfterClass: true # HFT: Clear class boundaries for complex trading logic
+  AfterControlStatement: false # HFT: Keep control flow compact for performance
+  AfterEnum: true # Clear enum boundaries
+  AfterFunction: true # HFT: Function separation critical for debugging
+  AfterNamespace: false # HFT: Keep namespaces compact
+  AfterStruct: true # Clear struct boundaries
+  AfterUnion: true # Clear union boundaries
+  BeforeCatch: true # Exception handling clarity
+  BeforeElse: true # Clear if-else separation
+  SplitEmptyFunction: false # HFT: Keep empty functions on one line
+  SplitEmptyRecord: false # HFT: Keep empty records compact
+  SplitEmptyNamespace: false # HFT: Keep empty namespaces compact
+
+# =====================
+# Alignments - HFT Readability Focus
+# =====================
+AlignEscapedNewlines: Right # Consistent macro formatting
+AlignOperands: true # HFT: Align complex mathematical expressions
+AlignAfterOpenBracket: Align # Consistent bracket alignment
+AlignTrailingComments: true # HFT: Aligned comments for quick scanning
+
+# HFT: Disable consecutive alignments to prevent performance impact
+# These can cause excessive reformatting and reduce code maintainability
+AlignConsecutiveAssignments:
+  Enabled: false # HFT: Avoid excessive alignment overhead
+AlignConsecutiveDeclarations:
+  Enabled: false # HFT: Keep declarations simple and readable
+AlignConsecutiveMacros:
+  Enabled: false # HFT: Avoid macro alignment complexity
+AlignConsecutiveBitFields:
+  Enabled: false # HFT: Keep bit fields simple
+
+# =====================
+# Spaces - HFT Performance & Readability
+# =====================
+SpaceBeforeParens: ControlStatements # HFT: Clear control flow separation
+SpaceBeforeRangeBasedForLoopColon: true # HFT: Clear range-based for loop syntax
+SpaceInEmptyParentheses: false # HFT: Compact empty parentheses
+SpacesInAngles: false # HFT: No spaces in template parameters (performance)
+SpacesInCStyleCastParentheses: false # HFT: Compact C-style casts
+SpacesInParentheses: false # HFT: Compact parentheses
+SpacesInSquareBrackets: false # HFT: Compact array access
+SpacesBeforeTrailingComments: 1 # HFT: Single space before comments
+
+# =====================
+# Includes - HFT Organization Standards
+# =====================
+IncludeBlocks: Regroup # HFT: Logical include grouping
+SortIncludes: true # HFT: Consistent include ordering
+IncludeCategories:
+  - Regex: '^<.*\.h>' # HFT: System headers first (performance)
+    Priority: 1
+  - Regex: "^<.*>" # HFT: Standard library headers
+    Priority: 2
+  - Regex: '^"' # HFT: Project headers last
+    Priority: 3
+
+# =====================
+# C++20 / Modern - HFT Performance Features
+# =====================
+Standard: c++20 # HFT: Latest C++ standard for performance features
+DerivePointerAlignment: false # HFT: Explicit pointer alignment control
+PointerAlignment: Left # HFT: Left-aligned pointers for readability
+
+# =====================
+# HFT-Specific Formatting Rules
+# =====================
+AllowShortFunctionsOnASingleLine: Empty # HFT: Keep empty functions compact
+AllowShortBlocksOnASingleLine: Never # HFT: Always break blocks for clarity
+AllowShortIfStatementsOnASingleLine: Never # HFT: Clear if statement separation
+AllowShortLoopsOnASingleLine: false # HFT: Always break loops for debugging
+
+# =====================
+# Penalty System - HFT Performance Balance
+# =====================
+PenaltyReturnTypeOnItsOwnLine: 200 # HFT: Prefer return types on same line
+PenaltyBreakAssignment: 50 # HFT: Moderate penalty for breaking assignments
+PenaltyBreakBeforeFirstCallParameter: 100 # HFT: Avoid breaking before first parameter
+PenaltyBreakComment: 10 # HFT: Low penalty for comment breaks
+PenaltyBreakString: 50 # HFT: Moderate penalty for string breaks
+PenaltyBreakTemplateDeclaration: 10 # HFT: Low penalty for template breaks
+PenaltyExcessCharacter: 1000 # HFT: High penalty for exceeding column limit
+PenaltyIndentedWhitespace: 0 # HFT: No penalty for proper indentation
+
+# =====================
+# HFT-Specific Advanced Rules
+# =====================
+ReflowComments: true # HFT: Reflow comments to fit column limit
+SortUsingDeclarations: true # HFT: Sort using declarations for consistency
+SpaceAfterCStyleCast: false # HFT: No space after C-style casts
+SpaceAfterTemplateKeyword: true # HFT: Space after template keyword
+SpaceBeforeAssignmentOperators: true # HFT: Space around assignment operators
+SpaceBeforeCpp11BracedList: false # HFT: No space before braced lists
+SpaceBeforeInheritanceColon: true # HFT: Space before inheritance colon
+SpaceInEmptyBlock: false # HFT: No space in empty blocks
+
+# =====================
+# HFT Performance-Critical Formatting
+# =====================
+# These settings ensure that performance-critical code remains readable
+# while maintaining optimal formatting for debugging and maintenance
+AllowAllParametersOfDeclarationOnNextLine: true # HFT: Allow long parameter lists
+AllowShortCaseLabelsOnASingleLine: false # HFT: Always break case labels
+AlwaysBreakAfterReturnType: None # HFT: Don't force return type breaks
+AlwaysBreakBeforeMultilineStrings: true # HFT: Break long strings
+AlwaysBreakTemplateDeclarations: Yes # HFT: Break template declarations
+BinPackArguments: true # HFT: Pack function arguments
+BinPackParameters: true # HFT: Pack function parameters
+BreakBeforeBinaryOperators: None # HFT: Don't break before operators
+BreakBeforeTernaryOperators: true # HFT: Break before ternary operators
+BreakConstructorInitializers: BeforeColon # HFT: Break constructor initializers
+BreakStringLiterals: true # HFT: Break long string literals
+CompactNamespaces: false # HFT: Don't compact namespaces
+ConstructorInitializerAllOnOneLineOrOnePerLine: true # HFT: One initializer per line
+ConstructorInitializerIndentWidth: 4 # HFT: Consistent initializer indentation
+ContinuationIndentWidth: 4 # HFT: Consistent continuation indentation
+Cpp11BracedListStyle: false # HFT: Use traditional brace style
+FixNamespaceComments: true # HFT: Fix namespace comments
+IndentPPDirectives: None # HFT: Don't indent preprocessor directives
+IndentWrappedFunctionNames: false # HFT: Don't indent wrapped function names
+KeepEmptyLinesAtTheStartOfBlocks: false # HFT: Remove empty lines at block start
+MaxEmptyLinesToKeep: 1 # HFT: Keep only one empty line
+RawStringFormats: [] # HFT: No raw string formats
+SeparateDefinitionBlocks: Always
