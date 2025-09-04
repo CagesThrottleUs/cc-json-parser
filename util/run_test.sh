@@ -9,7 +9,7 @@ RESET="$(printf '\033[0m')"
 PARSER="./ccjsonparser"
 
 # Number of parallel jobs (adjust to number of cores)
-JOBS=8
+JOBS=16
 
 # Function to test a single file
 test_file() {
